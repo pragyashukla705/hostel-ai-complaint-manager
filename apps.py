@@ -4,7 +4,8 @@ import google.generativeai as genai
 
 DATA_FILE = "complaints.csv"
 
-genai.configure(api_key="AIzaSyAIvrIeiU4ywq_U_reBKr6O-0D2u27ikJk")
+import os
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 
 st.set_page_config(page_title="Hostel Complaint Manager", page_icon="🏠", layout="wide")
 
@@ -35,47 +36,64 @@ Features:
 if theme == "Light Mode ☀️":
 
     st.markdown("""
-    <style>
-    .stApp {
-        background: linear-gradient(135deg,#ffffff,#f4f6ff);
-        color: black !important;
-    }
+<style>
 
-    section[data-testid="stSidebar"] {
-        background-color: white;
-    }
+.stApp {
+    background: linear-gradient(135deg,#ffffff,#f4f6ff);
+}
 
-    input, textarea {
-        background-color: white !important;
-        color: black !important;
-        border-radius: 6px;
-    }
+/* Force all text to black in light mode */
+h1, h2, h3, h4, h5, h6, p, span, label, div {
+    color: black !important;
+}
 
-    .stButton button {
-        background-color: #ff4d4d;
-        color: white;
-        border-radius: 8px;
-    }
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: white;
+}
 
-    .header-box {
-        background: linear-gradient(90deg,#d91c1c,#ff4d4d);
-        padding: 20px;
-        border-radius: 12px;
-        color: white;
-        margin-bottom: 25px;
-    }
+/* Radio buttons */
+.stRadio label {
+    color: black !important;
+}
 
-    .complaint-card {
-        background: white;
-        color: black;
-        padding: 18px;
-        border-radius: 14px;
-        border-left: 6px solid #6a5acd;
-        margin-bottom: 18px;
-        box-shadow: 0px 3px 10px rgba(0,0,0,0.08);
-    }
-    </style>
-    """, unsafe_allow_html=True)
+/* Inputs */
+input, textarea {
+    background-color: white !important;
+    color: black !important;
+    border-radius: 6px;
+}
+
+/* Buttons */
+.stButton button {
+    background-color: #ff4d4d;
+    color: white !important;
+    border-radius: 8px;
+    border: none;
+}
+
+/* Metrics text */
+[data-testid="stMetricValue"] {
+    color: black !important;
+}
+
+[data-testid="stMetricLabel"] {
+    color: black !important;
+}
+
+/* Complaint cards */
+.complaint-card {
+    background: white;
+    color: black !important;
+    padding: 18px;
+    border-radius: 14px;
+    border-left: 6px solid #6a5acd;
+    margin-bottom: 18px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.08);
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 else:
 
@@ -165,7 +183,7 @@ Complaint:
 
             try:
 
-                model = genai.GenerativeModel("gemini-pro")
+                model = genai.GenerativeModel("gemini-1.5-flash")
 
                 response = model.generate_content(prompt)
 
