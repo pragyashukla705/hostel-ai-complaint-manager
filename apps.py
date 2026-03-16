@@ -212,28 +212,27 @@ Complaint:
 
             try:
 
-                response = client.models.generate_content(
-                    model="gemini-2.5-flash",
-                    contents=prompt
-                )
+                try:
+    response = genai.models.generate(
+        model="gemini-2.5",
+        input=prompt
+    )
+    ai_text = response.output_text
 
-                ai_text = response.text
+    st.session_state.complaints.append({
+        "Name": name,
+        "Room": room,
+        "Complaint": complaint,
+        "AI Analysis": ai_text,
+        "Status": "Pending"
+    })
 
-                st.session_state.complaints.append({
-                    "Name": name,
-                    "Room": room,
-                    "Complaint": complaint,
-                    "AI Analysis": ai_text,
-                    "Status": "Pending"
-                })
+    pd.DataFrame(st.session_state.complaints).to_csv(DATA_FILE,index=False)
+    st.success("Complaint submitted successfully!")
+    st.rerun()
 
-                pd.DataFrame(st.session_state.complaints).to_csv(DATA_FILE,index=False)
-
-                st.success("Complaint submitted successfully!")
-                st.rerun()
-
-            except Exception as e:
-                st.error(f"AI Error: {e}")
+except Exception as e:
+    st.error(f"AI Error: {e}")
 
 # ---------------- Notice Board ----------------
 with col2:
