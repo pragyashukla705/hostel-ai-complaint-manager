@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-from google import genai
+from genai import Client
 
 DATA_FILE = "complaints.csv"
 
