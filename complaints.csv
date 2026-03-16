@@ -1,0 +1,40 @@
+Name,Room,Complaint,AI Analysis,Status
+PRAGYA SHUKLA,208,fan not working,"Here's the analysis of the complaint:
+
+*   **Category:** Maintenance
+*   **Priority:** Medium
+*   **One line summary:** Guest reports the fan in their room is not working.
+*   **Suggested action:** Dispatch maintenance to inspect and repair or replace the fan, and inform the guest of the resolution.",Resolved
+paras,211,no complaints,"Category: Other (Positive Feedback / No Issue)
+Priority: Low
+One line summary: Guest expressed satisfaction with their stay, reporting no issues.
+Suggested action: Acknowledge positive feedback, note for satisfaction metrics, and consider encouraging the guest to leave a public review.",Resolved
+ANANYA,311,FAN BROKEN,"Here's the analysis of the complaint:
+
+**Category:** Maintenance
+**Priority:** Medium
+**One line summary:** Guest reports a broken fan in their room.
+**Suggested action:** Dispatch maintenance to inspect and repair or replace the broken fan immediately. If immediate repair/replacement is not possible, offer a portable fan or a room change.",Resolved
+HARSH,344,WASHROOM LEAKING,"Here's the analysis of the complaint:
+
+*   **Category:** Maintenance
+*   **Priority:** High
+*   **One line summary:** Plumbing issue causing water leakage in the washroom.
+*   **Suggested action:** Immediately dispatch maintenance to assess the severity and location of the leak, then arrange for prompt repair by a qualified plumber. Ensure the area is made safe and any standing water is cleaned up to prevent slip hazards or further damage.",Pending
+NIDHI,405,"TABLE BROKEN
+","Here's the analysis of the complaint:
+
+*   **Category:** Maintenance
+*   **Priority:** Medium
+*   **One line summary:** A table on the premises has been reported as broken.
+*   **Suggested action:** Inspect the broken table, secure it if it poses a safety risk, and arrange for immediate repair or replacement.",Pending
+kirti,311,washroom leakage,"Here's the analysis of the complaint:
+
+*   **Category:** Maintenance
+*   **Priority:** High
+*   **One line summary:** Report of water leakage in the washroom.
+*   **Suggested action:** Dispatch maintenance immediately to inspect the source and severity of the washroom leak, perform necessary repairs, and ensure the area is dried and safe to prevent slip hazards or further damage.",Resolved
+kirti,311,washroom leakage,"Category: Maintenance
+Priority: High
+One line summary: Washroom leakage reported.
+Suggested action: Dispatch maintenance immediately to investigate the source of the leakage and perform necessary repairs.",Pending
