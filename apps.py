@@ -210,9 +210,7 @@ Complaint:
 {complaint}
 """
 
-            try:
-
-                try:
+     try:
     response = genai.models.generate(
         model="gemini-2.5",
         input=prompt
