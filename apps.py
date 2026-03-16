@@ -4,7 +4,7 @@ import google.generativeai as genai
 
 DATA_FILE = "complaints.csv"
 
-genai.configure(api_key="AIzaSyByIBmPd9qby2W8cm34woUUARNWs2owgbk")
+genai.configure(api_key="AIzaSyAIvrIeiU4ywq_U_reBKr6O-0D2u27ikJk")
 
 st.set_page_config(page_title="Hostel Complaint Manager", page_icon="🏠", layout="wide")
 
@@ -31,11 +31,11 @@ Features:
 """)
 
 # ---------------- UI Styling ----------------
+
 if theme == "Light Mode ☀️":
 
     st.markdown("""
     <style>
-
     .stApp {
         background: linear-gradient(135deg,#ffffff,#f4f6ff);
         color: black !important;
@@ -43,41 +43,18 @@ if theme == "Light Mode ☀️":
 
     section[data-testid="stSidebar"] {
         background-color: white;
-        color: black !important;
     }
 
-    /* All text */
-    p, span, label, div, h1, h2, h3, h4 {
-        color: black !important;
-    }
-
-    /* Radio buttons */
-    .stRadio label {
-        color: black !important;
-    }
-
-    /* Inputs */
     input, textarea {
         background-color: white !important;
         color: black !important;
         border-radius: 6px;
     }
 
-    /* Buttons */
     .stButton button {
         background-color: #ff4d4d;
         color: white;
         border-radius: 8px;
-        border: none;
-    }
-
-    /* Metrics */
-    [data-testid="stMetricValue"] {
-        color: black !important;
-    }
-
-    [data-testid="stMetricLabel"] {
-        color: black !important;
     }
 
     .header-box {
@@ -97,15 +74,6 @@ if theme == "Light Mode ☀️":
         margin-bottom: 18px;
         box-shadow: 0px 3px 10px rgba(0,0,0,0.08);
     }
-
-    .urgent-card {
-        background: #fff2f2;
-        color: black;
-        padding: 18px;
-        border-radius: 14px;
-        border-left: 6px solid #d91c1c;
-    }
-
     </style>
     """, unsafe_allow_html=True)
 
@@ -113,21 +81,14 @@ else:
 
     st.markdown("""
     <style>
-
     .stApp {
         background: linear-gradient(135deg,#0f172a,#1e293b);
         color: white;
     }
 
-    label {
-        color: white !important;
-        font-weight: 600;
-    }
-
     input, textarea {
         color: white !important;
         background-color: #1e293b !important;
-        border-radius: 6px;
     }
 
     .header-box {
@@ -146,19 +107,11 @@ else:
         border-left: 6px solid #8b5cf6;
         margin-bottom: 18px;
     }
-
-    .urgent-card {
-        background: #3f1d1d;
-        color: white;
-        padding: 18px;
-        border-radius: 14px;
-        border-left: 6px solid #ef4444;
-    }
-
     </style>
     """, unsafe_allow_html=True)
 
 # ---------------- Header ----------------
+
 st.markdown('<div class="header-box">', unsafe_allow_html=True)
 
 colH1, colH2 = st.columns([1.5,6])
@@ -174,17 +127,17 @@ st.markdown("</div>", unsafe_allow_html=True)
 
 col1, col2 = st.columns([2,1])
 
-# Load complaints
-if "complaints" not in st.session_state:
+# ---------------- Load complaints ----------------
 
+if "complaints" not in st.session_state:
     try:
         df = pd.read_csv(DATA_FILE)
         st.session_state.complaints = df.to_dict("records")
-
     except:
         st.session_state.complaints = []
 
 # ---------------- Complaint Form ----------------
+
 with col1:
 
     st.header("Submit a Complaint")
@@ -210,35 +163,38 @@ Complaint:
 {complaint}
 """
 
-     try:
-    response = genai.models.generate(
-        model="gemini-2.5",
-        input=prompt
-    )
-    ai_text = response.output_text
+            try:
 
-    st.session_state.complaints.append({
-        "Name": name,
-        "Room": room,
-        "Complaint": complaint,
-        "AI Analysis": ai_text,
-        "Status": "Pending"
-    })
+                model = genai.GenerativeModel("gemini-1.5-flash")
 
-    pd.DataFrame(st.session_state.complaints).to_csv(DATA_FILE,index=False)
-    st.success("Complaint submitted successfully!")
-    st.rerun()
+                response = model.generate_content(prompt)
 
-except Exception as e:
-    st.error(f"AI Error: {e}")
+                ai_text = response.text
+
+                st.session_state.complaints.append({
+                    "Name": name,
+                    "Room": room,
+                    "Complaint": complaint,
+                    "AI Analysis": ai_text,
+                    "Status": "Pending"
+                })
+
+                pd.DataFrame(st.session_state.complaints).to_csv(DATA_FILE,index=False)
+
+                st.success("Complaint submitted successfully!")
+                st.rerun()
+
+            except Exception as e:
+                st.error(f"AI Error: {e}")
 
 # ---------------- Notice Board ----------------
+
 with col2:
 
     st.header("Hostel Notice Board")
 
     st.markdown("""
-**Important Contact Numbers**  
+**Important Contact Numbers**
 
 Warden: +91 XXXXXXXX  
 Electrician: +91 XXXXXXXX  
@@ -246,8 +202,10 @@ Plumber: +91 XXXXXXXX
 Security: +91 XXXXXXXX  
 
 For emergencies call directly.
-""", unsafe_allow_html=True)
+""")
+
 # ---------------- Statistics ----------------
+
 st.divider()
 st.header("Complaint Overview")
 
@@ -262,15 +220,17 @@ c2.metric("Pending", pending)
 c3.metric("Resolved", resolved)
 
 # ---------------- Search ----------------
+
 st.divider()
 search_query = st.text_input("🔎 Search complaints")
 
 # ---------------- Dashboard ----------------
+
 st.header("Warden Dashboard")
 
 for i, c in enumerate(st.session_state.complaints):
 
-    if search_query.lower() not in str(c).lower():
+    if search_query and search_query.lower() not in str(c).lower():
         continue
 
     st.markdown('<div class="complaint-card">', unsafe_allow_html=True)
