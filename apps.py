@@ -4,7 +4,7 @@ import google.generativeai as genai
 
 DATA_FILE = "complaints.csv"
 
-client = genai.Client(api_key="AIzaSyByIBmPd9qby2W8cm34woUUARNWs2owgbk")
+genai.configure(api_key="AIzaSyByIBmPd9qby2W8cm34woUUARNWs2owgbk")
 
 st.set_page_config(page_title="Hostel Complaint Manager", page_icon="🏠", layout="wide")
 
