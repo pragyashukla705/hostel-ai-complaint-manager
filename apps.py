@@ -5,7 +5,7 @@ import os
 
 DATA_FILE = "complaints.csv"
 
-genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+genai.configure(api_key=os.environ.get("AIzaSyD8P8nRZd53o9ie2yfFraQKouVM6vCO_uE"))
 
 st.set_page_config(page_title="Hostel Complaint Manager", page_icon="🏠", layout="wide")
 
